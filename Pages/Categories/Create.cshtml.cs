@@ -27,9 +27,13 @@ namespace AbbyWeb.Pages.Categories
 
         public async Task<IActionResult> OnPost(Category category)
         {
-            await _db.Category.AddAsync(category);
-            await _db.SaveChangesAsync();
-            return RedirectToPage("Index");
+            if (ModelState.IsValid)
+            {
+                await _db.Category.AddAsync(category);
+                await _db.SaveChangesAsync();
+                return RedirectToPage("Index");
+            }
+            return Page();
         }
     }
 }
